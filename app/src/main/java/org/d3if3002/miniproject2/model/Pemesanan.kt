@@ -6,5 +6,6 @@ data class Pemesanan(
     val pesanan: String,
     val jumlah: String,
     val pembayaran: String,
+    val total: String,
     val tanggal: String
 )
