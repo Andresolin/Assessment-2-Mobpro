@@ -2,4 +2,6 @@
     <string name="app_name">Miayamee</string>
     <string name="pesanan_kosong">Pesanan kosong</string>
     <string name="x_klik">%1$s diklik!</string>
+    <string name="tambah_pemesanan">Tambah Pemesanan</string>
+    <string name="tambah_eror">Belum bisa tambah pemesanan</string>
 </resources>
