@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Miayamee</string>
     <string name="pesanan_kosong">Pesanan kosong</string>
+    <string name="x_klik">%1$s diklik!</string>
 </resources>
