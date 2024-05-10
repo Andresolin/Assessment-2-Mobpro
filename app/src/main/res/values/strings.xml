@@ -22,4 +22,9 @@
     <string name="hapus">Hapus pemesanan</string>
 
     <string name="invalid">nama, pesanan, jumlah, pembayaran dan total tidak boleh kosong.</string>
+
+    <string name="pesan_hapus">Hapus pemesanan ini?</string>
+    <string name="tombol_hapus">Hapus</string>
+    <string name="tombol_batal">Batal</string>
+
 </resources>

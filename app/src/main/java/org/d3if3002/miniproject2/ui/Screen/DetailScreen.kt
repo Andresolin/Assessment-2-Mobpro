@@ -68,10 +68,14 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
 
     // Tambahkan variabel pembayaran ke dalam mutableStateOf
     var pembayaran by remember { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(false)}
+
     val radioOptions = listOf(
         stringResource(id = R.string.cash),
         stringResource(id = R.string.qris)
     )
+
+
 
     LaunchedEffect(true) {
         if (id == null ) return@LaunchedEffect
@@ -130,7 +134,12 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
                         )
                     }
                     if (id != null) {
-                        DeleteAction {
+                        DeleteAction { showDialog = true }
+                        DisplayAlertDialog(
+                            openDialog = showDialog,
+                            onDismissRequest = { showDialog = false }
+                        ) {
+                            showDialog = false
                             viewModel.delete(id)
                             navController.popBackStack()
                         }
