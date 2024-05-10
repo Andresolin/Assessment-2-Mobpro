@@ -3,11 +3,17 @@
     <string name="pesanan_kosong">Pesanan kosong</string>
     <string name="x_klik">%1$s diklik!</string>
     <string name="tambah_pemesanan">Tambah Pemesanan</string>
-    <string name="tambah_eror">Belum bisa tambah pemesanan</string>
+
 
     <string name="nama">Nama</string>
     <string name="pesanan">Pesanan</string>
     <string name="jumlah">Jumlah</string>
     <string name="pembayaran">Pembayaran</string>
     <string name="total">Total</string>
+
+    <string name="kembali">Kembali</string>
+    <string name="simpan">Simpan</string>
+
+    <string name="cash">Cash</string>
+    <string name="qris">Qris</string>
 </resources>

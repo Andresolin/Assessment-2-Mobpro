@@ -33,12 +33,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import org.d3if3002.miniproject2.R
 import org.d3if3002.miniproject2.model.Pemesanan
+import org.d3if3002.miniproject2.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
 
     val context = LocalContext.current
 
@@ -55,7 +58,7 @@ fun MainScreen() {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    Toast.makeText(context, R.string.tambah_eror, Toast.LENGTH_SHORT).show()
+                    navController.navigate(Screen.FormBaru.route)
                 }
             ) {
                 Icon(
@@ -151,6 +154,6 @@ fun ListItem(pemesanan: Pemesanan, onClick: () ->Unit) {
 @Composable
 fun GreetingPreview() {
     MaterialTheme {
-        MainScreen()
+        MainScreen(rememberNavController())
     }
 }
