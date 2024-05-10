@@ -1,29 +1,21 @@
 package org.d3if3002.miniproject2.ui.Screen
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import org.d3if3002.miniproject2.database.PemesananDao
 import org.d3if3002.miniproject2.model.Pemesanan
 
 
-class MainViewModel : ViewModel() {
+class MainViewModel(dao: PemesananDao) : ViewModel() {
 
-    val data = getDataDummy()
 
-    private fun getDataDummy(): List<Pemesanan> {
-        val data = mutableListOf<Pemesanan>()
-        for (i in 19 downTo 10){
-            data.add(
-                Pemesanan(
-                    i.toLong(),
-                    "Andre $i",
-                    "mie ayam",
-                    "1$i",
-                    "Cash",
-                    "Rp 1000$i",
-                    "2024-05-$i 12:34:56"
-                )
-            )
-        }
-        return data
-    }
+    val data: StateFlow<List<Pemesanan>> = dao.getPemesanan().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = emptyList()
+    )
 
 }
