@@ -24,7 +24,7 @@ abstract class PemesananDb : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         PemesananDb::class.java,
-                        "cacatan.db"
+                        "pemesanan.db"
                     ).build()
                     INSTANCE = instance
                 }
