@@ -47,10 +47,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.d3if3002.miniproject2.R
 import org.d3if3002.miniproject2.database.PemesananDb
 import org.d3if3002.miniproject2.model.Pemesanan
 import org.d3if3002.miniproject2.navigation.Screen
+import org.d3if3002.miniproject2.util.SettingsDataStore
 import org.d3if3002.miniproject2.util.ViewModelFactory
 
 
@@ -58,7 +62,8 @@ import org.d3if3002.miniproject2.util.ViewModelFactory
 @Composable
 fun MainScreen(navController: NavHostController) {
 
-    var showList by remember { mutableStateOf(true) }
+    val dataStore = SettingsDataStore(LocalContext.current)
+    val showList by dataStore.layoutFlow.collectAsState(true)
     Scaffold(
         topBar = {
             TopAppBar(
@@ -68,7 +73,11 @@ fun MainScreen(navController: NavHostController) {
                     titleContentColor = MaterialTheme.colorScheme.primary
                 ),
                 actions = {
-                    IconButton(onClick = { showList = !showList }) {
+                    IconButton(onClick = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            dataStore.saveLayout(!showList)
+                        }
+                    }) {
                         Icon(
                             painter = painterResource(
                                 if (showList) R.drawable.baseline_grid_view_24
