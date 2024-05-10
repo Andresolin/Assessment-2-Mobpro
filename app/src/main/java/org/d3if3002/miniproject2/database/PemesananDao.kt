@@ -19,4 +19,7 @@ interface PemesananDao {
     @Query("SELECT * FROM pemesanan ORDER BY tanggal DESC")
     fun getPemesanan(): Flow<List<Pemesanan>>
 
+    @Query("SELECT * FROM pemesanan WHERE id = :id")
+    suspend fun getPemesananById(id: Long): Pemesanan?
+
 }

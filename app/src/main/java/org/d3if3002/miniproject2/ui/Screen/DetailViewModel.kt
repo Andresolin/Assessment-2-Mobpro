@@ -29,15 +29,23 @@ class DetailViewModel(private val dao: PemesananDao) : ViewModel() {
         }
     }
 
-    fun getPemesanan(id: Long): Pemesanan {
-        return Pemesanan(
+    suspend fun getPemesanan(id: Long): Pemesanan? {
+        return dao.getPemesananById(id)
+    }
+
+    fun update(id: Long,nama: String, pesanan: String, jumlah: String, pembayaran: String, total: String) {
+        val pemesanan = Pemesanan(
             id = id,
-            nama = "Andre $id",
-            pesanan = "mie ayam",
-            jumlah = "1$id",
-            pembayaran = "Qris",
-            total = "Rp 1000$id",
-            tanggal = "2024-05-$id 12:34:56"
+            tanggal = formatter.format(Date()),
+            nama = nama,
+            pesanan = pesanan,
+            jumlah = jumlah,
+            pembayaran = pembayaran,
+            total = total
         )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            dao.update(pemesanan)
+        }
     }
 }

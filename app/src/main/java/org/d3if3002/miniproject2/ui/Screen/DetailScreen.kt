@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -69,8 +70,9 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
         stringResource(id = R.string.qris)
     )
 
-    if (id != null) {
-        val data = viewModel.getPemesanan(id)
+    LaunchedEffect(true) {
+        if (id == null ) return@LaunchedEffect
+        val data = viewModel.getPemesanan(id) ?: return@LaunchedEffect
         nama = data.nama
         pesanan = data.pesanan
         jumlah = data.jumlah
@@ -112,6 +114,8 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
 
                         if (id == null) {
                             viewModel.insert(nama, pesanan, jumlah, pembayaran, total)
+                        } else {
+                            viewModel.update(id, nama, pesanan, jumlah, pembayaran, total)
                         }
 
                         navController.popBackStack()  }
