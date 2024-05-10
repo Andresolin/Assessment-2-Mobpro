@@ -105,11 +105,11 @@ fun ScreenContent(modifier: Modifier, navController: NavHostController) {
 }
 
 @Composable
-fun ListItem(pemesanan: Pemesanan, onClick: () ->Unit) {
+fun ListItem(pemesanan: Pemesanan, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickable { onClick() } // Mengirimkan onClick event saat ListItem diklik
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -129,13 +129,11 @@ fun ListItem(pemesanan: Pemesanan, onClick: () ->Unit) {
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
-
         Text(
             text = pemesanan.pembayaran,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
-
         Text(
             text = pemesanan.total,
             maxLines = 1,
@@ -144,6 +142,7 @@ fun ListItem(pemesanan: Pemesanan, onClick: () ->Unit) {
         Text(text = pemesanan.tanggal)
     }
 }
+
 
 
 @Preview(showBackground = true)

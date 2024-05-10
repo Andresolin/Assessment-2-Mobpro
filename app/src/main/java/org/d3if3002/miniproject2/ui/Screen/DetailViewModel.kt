@@ -11,7 +11,7 @@ class DetailViewModel: ViewModel() {
             "Andre $id",
             "mie ayam",
             "1$id",
-            "cash",
+            "Cash",
             "Rp 1000$id",
             "2024-05-$id 12:34:56"
         )
