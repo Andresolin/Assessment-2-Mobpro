@@ -2,12 +2,12 @@ package org.d3if3002.miniproject2.ui.Screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -19,7 +19,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -33,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,14 +40,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.d3if3002.miniproject2.R
 
+
+const val KEY_ID_PEMESANAN = "idPemesanan"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(navController: NavHostController) {
+fun DetailScreen(navController: NavHostController, id: Long? = null) {
     var nama by remember { mutableStateOf("") }
     var pesanan by remember { mutableStateOf("") }
     var jumlah by remember { mutableStateOf("") }
-    var pembayaran by remember { mutableStateOf("") }
     var total by remember { mutableStateOf("") }
+
+    // Tambahkan variabel pembayaran ke dalam mutableStateOf
+    var pembayaran by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -64,24 +66,28 @@ fun DetailScreen(navController: NavHostController) {
                     }
                 },
                 title = {
-                    Text(text = stringResource(id = R.string.tambah_pemesanan))
+                    if (id == null)
+                        Text(text = stringResource(id = R.string.tambah_pemesanan))
+                    else
+                        Text(text = stringResource(id = R.string.edit_pemesanan))
                 },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary
                 ),
                 actions = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(imageVector = Icons.Outlined.Check,
+                    IconButton(onClick = {  navController.popBackStack()  }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Check,
                             contentDescription = stringResource(id = R.string.simpan),
                             tint = MaterialTheme.colorScheme.primary
-
                         )
                     }
                 }
             )
         },
     ) { padding ->
+        // Memanggil FormCatatan dengan parameter yang diperlukan
         FormCatatan(
             nama = nama,
             onNamaChange = { nama = it },
@@ -89,8 +95,8 @@ fun DetailScreen(navController: NavHostController) {
             onPesananChange = { pesanan = it },
             jumlah = jumlah,
             onJumlahChange = { jumlah = it },
-            pembayaran = pembayaran,
-            onPembayaranChange = { pembayaran = it },
+            pembayaran = pembayaran, // Gunakan variabel pembayaran di sini
+            onPembayaranChange = { pembayaran = it }, // Ubah value variabel pembayaran
             total = total,
             onTotalChange = { total = it },
             modifier = Modifier.padding(padding)
@@ -100,20 +106,22 @@ fun DetailScreen(navController: NavHostController) {
 
 @Composable
 fun FormCatatan(
-    nama: String, onNamaChange: (String) -> Unit,
-    pesanan: String, onPesananChange: (String) -> Unit,
-    jumlah: String, onJumlahChange: (String) -> Unit,
-    pembayaran: String, onPembayaranChange: (String) -> Unit,
-    total: String, onTotalChange: (String) -> Unit,
+    nama: String,
+    onNamaChange: (String) -> Unit,
+    pesanan: String,
+    onPesananChange: (String) -> Unit,
+    jumlah: String,
+    onJumlahChange: (String) -> Unit,
+    pembayaran: String,
+    onPembayaranChange: (String) -> Unit,
+    total: String,
+    onTotalChange: (String) -> Unit,
     modifier: Modifier
 ) {
-
-    val radioOption = listOf(
+    val radioOptions = listOf(
         stringResource(id = R.string.cash),
         stringResource(id = R.string.qris)
     )
-
-    var pembayaran by remember { mutableStateOf(radioOption[0])}
 
     Column(
         modifier = modifier
@@ -133,7 +141,7 @@ fun FormCatatan(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Add more fields for other data items
+        // Field untuk pesanan
         OutlinedTextField(
             value = pesanan,
             onValueChange = { onPesananChange(it) },
@@ -146,6 +154,7 @@ fun FormCatatan(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Field untuk jumlah
         OutlinedTextField(
             value = jumlah,
             onValueChange = { onJumlahChange(it) },
@@ -155,26 +164,25 @@ fun FormCatatan(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Radio Button Options untuk pembayaran
         Row(
             modifier = Modifier
                 .padding(top = 6.dp)
                 .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
         ) {
-            radioOption.forEach{ text ->
-                PaymentOption(label = text,
+            radioOptions.forEach { text ->
+                PaymentOption(
+                    label = text,
                     isSelected = pembayaran == text,
+                    onOptionSelected = { onPembayaranChange(text) },
                     modifier = Modifier
-                        .selectable(
-                            selected = pembayaran == text,
-                            onClick = { pembayaran = text },
-                            role = Role.RadioButton
-                        )
                         .weight(1f)
                         .padding(16.dp)
                 )
             }
         }
 
+        // Field untuk total
         OutlinedTextField(
             value = total,
             onValueChange = { onTotalChange(it) },
@@ -186,23 +194,26 @@ fun FormCatatan(
     }
 }
 
-
-
 @Composable
-fun PaymentOption(label: String, isSelected: Boolean, modifier: Modifier) {
+fun PaymentOption(
+    label: String,
+    isSelected: Boolean,
+    onOptionSelected: () -> Unit,
+    modifier: Modifier
+) {
     Row(
-        modifier = modifier,
+        modifier = modifier.clickable(onClick = onOptionSelected),
         verticalAlignment = Alignment.CenterVertically
     ) {
         RadioButton(
             selected = isSelected,
-            onClick = null
+            onClick = null // RadioButton di-handle oleh onClick di Row
         )
-        Text(text = label,
+        Text(
+            text = label,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(start = 8.dp)
         )
-
     }
 }
 

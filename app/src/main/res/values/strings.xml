@@ -3,6 +3,7 @@
     <string name="pesanan_kosong">Pesanan kosong</string>
     <string name="x_klik">%1$s diklik!</string>
     <string name="tambah_pemesanan">Tambah Pemesanan</string>
+    <string name="edit_pemesanan">Edit Pemesanan</string>
 
 
     <string name="nama">Nama</string>

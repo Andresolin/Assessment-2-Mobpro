@@ -3,6 +3,7 @@ package org.d3if3002.miniproject2.ui.Screen
 import androidx.lifecycle.ViewModel
 import org.d3if3002.miniproject2.model.Pemesanan
 
+
 class MainViewModel : ViewModel() {
 
     val data = getDataDummy()
