@@ -22,4 +22,7 @@ interface PemesananDao {
     @Query("SELECT * FROM pemesanan WHERE id = :id")
     suspend fun getPemesananById(id: Long): Pemesanan?
 
+    @Query("DELETE FROM pemesanan WHERE id = :id")
+    suspend fun deleteById(id: Long)
+
 }

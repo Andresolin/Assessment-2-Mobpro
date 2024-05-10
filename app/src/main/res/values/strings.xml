@@ -18,5 +18,8 @@
     <string name="cash">Cash</string>
     <string name="qris">Qris</string>
 
+    <string name="lainya">Opsi lainnya</string>
+    <string name="hapus">Hapus pemesanan</string>
+
     <string name="invalid">nama, pesanan, jumlah, pembayaran dan total tidak boleh kosong.</string>
 </resources>
