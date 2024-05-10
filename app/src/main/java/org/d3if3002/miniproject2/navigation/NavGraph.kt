@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import org.d3if3002.miniproject2.ui.Screen.AdminLanding
 import org.d3if3002.miniproject2.ui.Screen.DetailScreen
 import org.d3if3002.miniproject2.ui.Screen.KEY_ID_PEMESANAN
 import org.d3if3002.miniproject2.ui.Screen.MainScreen
@@ -17,7 +18,7 @@ import org.d3if3002.miniproject2.ui.Screen.MainScreen
 fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.AdminLanding.route
     ) {
         composable(route = Screen.Home.route) {
             MainScreen(navController)
@@ -25,6 +26,10 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
 
         composable(route = Screen.FormBaru.route) {
             DetailScreen(navController)
+        }
+
+        composable(route = Screen.AdminLanding.route){
+            AdminLanding(navController)
         }
 
         composable(
