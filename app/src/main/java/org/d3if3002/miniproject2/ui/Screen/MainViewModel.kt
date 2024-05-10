@@ -16,8 +16,8 @@ class MainViewModel : ViewModel() {
                     "Andre $i",
                     "mie ayam",
                     "1$i",
-                    "Rp 1000$i",
                     "cash",
+                    "Rp 1000$i",
                     "2024-05-$i 12:34:56"
                 )
             )

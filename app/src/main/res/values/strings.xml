@@ -4,4 +4,10 @@
     <string name="x_klik">%1$s diklik!</string>
     <string name="tambah_pemesanan">Tambah Pemesanan</string>
     <string name="tambah_eror">Belum bisa tambah pemesanan</string>
+
+    <string name="nama">Nama</string>
+    <string name="pesanan">Pesanan</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="pembayaran">Pembayaran</string>
+    <string name="total">Total</string>
 </resources>

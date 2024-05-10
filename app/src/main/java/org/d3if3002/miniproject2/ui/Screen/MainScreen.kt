@@ -135,6 +135,12 @@ fun ListItem(pemesanan: Pemesanan, onClick: () ->Unit) {
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
+
+        Text(
+            text = pemesanan.total,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
         Text(text = pemesanan.tanggal)
     }
 }
