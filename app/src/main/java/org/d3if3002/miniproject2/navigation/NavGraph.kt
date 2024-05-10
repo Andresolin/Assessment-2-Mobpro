@@ -34,7 +34,7 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
             )
         ) {navBackStackEntry ->
             val id = navBackStackEntry.arguments?.getLong(KEY_ID_PEMESANAN)
-            DetailScreen(navController)
+            DetailScreen(navController, id)
         }
 
     }
